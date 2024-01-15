@@ -11,6 +11,15 @@ anyhow = "1.0"
 indicatif = "0.17.7"
 env_logger = "0.10.1"
 log = "0.4.20"
+ctrlc = "3.4"
+signal-hook = "0.3.17"
+crossbeam-channel = "0.5.11"
+confy = "0.6.0"
+serde = { version = "1.0.195", features = ["derive"] }
+exitcode = "1.1.2"
+human-panic = "1.2.3"
+is-terminal = "0.4.10"
+serde_json = "1.0.111"
 
 
 [dev-dependencies]

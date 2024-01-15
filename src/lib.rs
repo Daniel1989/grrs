@@ -1,7 +1,9 @@
-use anyhow::{Context, Result};
+use anyhow::{Context};
 use log::warn;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
+use std::{thread, time::Duration};
+
 
 #[test]
 fn find_a_match() {
@@ -16,9 +18,7 @@ fn find_a_match() {
 
 pub fn find_matches(reader: BufReader<File>, pattern: &str, mut writer: impl std::io::Write) {
     let pb = indicatif::ProgressBar::new(100);
-    let mut line_count = 0;
     for line in reader.lines() {
-        line_count += 1;
         let line_content = match line {
             Ok(content) => content,
             Err(e) => {
@@ -29,8 +29,10 @@ pub fn find_matches(reader: BufReader<File>, pattern: &str, mut writer: impl std
         if line_content.contains(pattern) {
             writeln!(writer, "line_content: {}", line_content).unwrap(); // add `?` if you care about errors here
         }
-        pb.println(format!("[+] finished #{}", line_count));
+        // pb.println(format!("[+] finished #{}", line_count));
         pb.inc(1);
+        thread::sleep(Duration::from_secs(1));
+
     }
     pb.finish_with_message("done");
 }
